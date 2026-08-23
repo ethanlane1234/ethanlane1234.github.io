@@ -1,0 +1,60 @@
+/* Container grid configuration */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Core tile-button styling */
+.tile-button {
+  /* Layout & Sizing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 150px;
+  padding: 24px;
+  
+  /* Presentation & Colors */
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  
+  /* Text Cleanup */
+  text-decoration: none; /* Removes the default link underline */
+  
+  /* Smooth Animation System */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Typography styles inside the tile link */
+.tile-button h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  color: #111111;
+}
+
+.tile-button p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666666;
+  line-height: 1.4;
+}
+
+/* Hover, Active, and Focus Interactive States */
+.tile-button:hover, 
+.tile-button:focus {
+  background-color: #fcfcfc;
+  outline: none; /* Safely managed via box-shadow below for accessibility */
+  transform: translateY(-4px); /* Moves the tile upward slightly */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-color: #0066cc; /* Gives a clear focus indicator ring */
+}
+
+/* Active click state */
+.tile-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+}

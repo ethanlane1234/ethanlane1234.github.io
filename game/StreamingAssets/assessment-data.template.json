@@ -1,0 +1,401 @@
+﻿{
+    "version":  1,
+    "objectTypes":  [
+                        {
+                            "objectType":  "ServerRack",
+                            "information":  [
+                                                {
+                                                    "status":  "The rack management interface allows HTTPS only; privileged access uses managed accounts.",
+                                                    "inspectionDetails":  "Observed open services: HTTPS (443). Administrative access is restricted to an approved management network.",
+                                                    "nistControl":  "CM-6 Configuration Settings; AC-2 Account Management; AC-4 Information Flow Enforcement",
+                                                    "riskGuidance":  "Evaluate the likelihood of unauthorized remote access and the impact to hosted systems."
+                                                },
+                                                {
+                                                    "status":  "Privileged access is restricted to managed accounts and no legacy protocols are enabled.",
+                                                    "inspectionDetails":  "Only HTTPS (443) is exposed. No remote desktop or insecure services detected.",
+                                                    "nistControl":  "CM-6 Configuration Settings; AC-2 Account Management",
+                                                    "riskGuidance":  "Evaluate the likelihood of unauthorized remote access and the impact to hosted systems."
+                                                },
+                                                {
+                                                    "status":  "The rack interface enforces MFA and is reachable only from the management VLAN.",
+                                                    "inspectionDetails":  "HTTPS (443) is the only exposed service. Access logs show successful MFA enforcement.",
+                                                    "nistControl":  "AC-2 Account Management; IA-2 Identification and Authentication",
+                                                    "riskGuidance":  "Evaluate the likelihood of unauthorized remote access and the impact to hosted systems."
+                                                },
+                                                {
+                                                    "status":  "The rack management interface is configured according to baseline hardening guidance.",
+                                                    "inspectionDetails":  "Only HTTPS (443) is exposed. Default accounts are disabled.",
+                                                    "nistControl":  "CM-6 Configuration Settings",
+                                                    "riskGuidance":  "Evaluate the likelihood of unauthorized remote access and the impact to hosted systems."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "The rack management interface exposes TCP/3389 and the default administrator account remains enabled.",
+                                                  "inspectionDetails":  "Observed open services: HTTPS (443), Remote Desktop (3389). The local administrator has not been disabled.",
+                                                  "nistControl":  "CM-6 Configuration Settings; AC-2 Account Management; AC-4 Information Flow Enforcement",
+                                                  "riskGuidance":  "Evaluate the likelihood of unauthorized remote access and the impact to hosted systems."
+                                              },
+                                              {
+                                                  "status":  "Legacy authentication protocols are enabled on the rack interface.",
+                                                  "inspectionDetails":  "TLS version is outdated and weak cipher suites are present.",
+                                                  "nistControl":  "SC-13 Cryptographic Protection",
+                                                  "riskGuidance":  "Evaluate risk of credential compromise due to weak encryption."
+                                              },
+                                              {
+                                                  "status":  "Rack interface logs show repeated failed login attempts.",
+                                                  "inspectionDetails":  "Brute-force pattern detected over the last 24 hours.",
+                                                  "nistControl":  "AC-7 Unsuccessful Login Attempts; SI-4 System Monitoring",
+                                                  "riskGuidance":  "Assess likelihood of unauthorized access attempts."
+                                              },
+                                              {
+                                                  "status":  "Default SNMP community strings are still configured.",
+                                                  "inspectionDetails":  "SNMPv2 public/private strings detected.",
+                                                  "nistControl":  "CM-6 Configuration Settings; AC-17 Remote Access",
+                                                  "riskGuidance":  "Evaluate exposure of management information to unauthorized parties."
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "AccessControlPanel",
+                            "information":  [
+                                                {
+                                                    "status":  "The access panel is secured; badge events are recorded and reviewed.",
+                                                    "inspectionDetails":  "The door latches automatically, and the console shows a current access-event review.",
+                                                    "nistControl":  "PE-3 Physical Access Control; AU-6 Audit Review, Analysis, and Reporting",
+                                                    "riskGuidance":  "Consider physical entry likelihood and the potential for unauthorized equipment access."
+                                                },
+                                                {
+                                                    "status":  "Badge access is enforced and logs show daily review.",
+                                                    "inspectionDetails":  "Door latch engages properly. Event console shows recent review activity.",
+                                                    "nistControl":  "PE-3 Physical Access Control",
+                                                    "riskGuidance":  "Consider physical entry likelihood and the potential for unauthorized equipment access."
+                                                },
+                                                {
+                                                    "status":  "Access panel is locked and monitored by the security desk.",
+                                                    "inspectionDetails":  "Badge events are logged and reviewed at shift turnover.",
+                                                    "nistControl":  "PE-3 Physical Access Control; AU-6 Audit Review",
+                                                    "riskGuidance":  "Consider physical entry likelihood and the potential for unauthorized equipment access."
+                                                },
+                                                {
+                                                    "status":  "Access control functions normally and audit logs are complete.",
+                                                    "inspectionDetails":  "Door latch is secure. Event console shows no missed reviews.",
+                                                    "nistControl":  "PE-3 Physical Access Control",
+                                                    "riskGuidance":  "Consider physical entry likelihood and the potential for unauthorized equipment access."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "The equipment-room access panel is propped open and its access-event log is not being reviewed.",
+                                                  "inspectionDetails":  "The door latch is bypassed. The visible event console shows no review since the previous shift.",
+                                                  "nistControl":  "PE-3 Physical Access Control; AU-6 Audit Review, Analysis, and Reporting",
+                                                  "riskGuidance":  "Consider physical entry likelihood and the potential for unauthorized equipment access.",
+                                                  "accessControlAnomalyBehavior":  "DoorWillNotClose"
+                                              },
+                                              {
+                                                  "status":  "Badge reader intermittently fails to authenticate users.",
+                                                  "inspectionDetails":  "Event logs show multiple read errors.",
+                                                  "nistControl":  "PE-3 Physical Access Control",
+                                                  "riskGuidance":  "Assess likelihood of unauthorized access due to malfunction.",
+                                                  "accessControlAnomalyBehavior":  "BadgeReaderFails"
+                                              },
+                                              {
+                                                  "status":  "Access logs show missing entries for several hours.",
+                                                  "inspectionDetails":  "Audit trail gap detected.",
+                                                  "nistControl":  "AU-6 Audit Review, Analysis, and Reporting",
+                                                  "riskGuidance":  "Evaluate potential tampering or system failure.",
+                                                  "accessControlAnomalyBehavior":  "DoorStaysUnlocked"
+                                              },
+                                              {
+                                                  "status":  "Door latch does not fully engage.",
+                                                  "inspectionDetails":  "Physical inspection shows partial latch closure.",
+                                                  "nistControl":  "PE-3 Physical Access Control",
+                                                  "riskGuidance":  "Assess risk of unauthorized physical access.",
+                                                  "accessControlAnomalyBehavior":  "DoorWillNotClose"
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "FireExtinguisher",
+                            "information":  [
+                                                {
+                                                    "status":  "The extinguisher is accessible, sealed, and has a current inspection tag.",
+                                                    "inspectionDetails":  "The unit is mounted in a marked, unobstructed location with a current inspection date.",
+                                                    "nistControl":  "PE-13 Fire Protection",
+                                                    "riskGuidance":  "Assess the safety and service-continuity impact if a fire cannot be promptly controlled."
+                                                },
+                                                {
+                                                    "status":  "The extinguisher is unobstructed and pressure gauge is within normal range.",
+                                                    "inspectionDetails":  "Inspection tag is current and seal is intact.",
+                                                    "nistControl":  "PE-13 Fire Protection",
+                                                    "riskGuidance":  "Assess the safety and service-continuity impact if a fire cannot be promptly controlled."
+                                                },
+                                                {
+                                                    "status":  "Fire extinguisher is properly mounted and clearly labeled.",
+                                                    "inspectionDetails":  "Inspection record shows monthly checks completed.",
+                                                    "nistControl":  "PE-13 Fire Protection",
+                                                    "riskGuidance":  "Assess the safety and service-continuity impact if a fire cannot be promptly controlled."
+                                                },
+                                                {
+                                                    "status":  "Extinguisher meets all inspection and accessibility requirements.",
+                                                    "inspectionDetails":  "No obstructions. Tag and seal are current.",
+                                                    "nistControl":  "PE-13 Fire Protection",
+                                                    "riskGuidance":  "Assess the safety and service-continuity impact if a fire cannot be promptly controlled."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "The extinguisher is blocked by equipment and the inspection tag is overdue.",
+                                                  "inspectionDetails":  "A clearance path is obstructed and the monthly inspection date has passed.",
+                                                  "nistControl":  "PE-13 Fire Protection",
+                                                  "riskGuidance":  "Assess the safety and service-continuity impact if a fire cannot be promptly controlled."
+                                              },
+                                              {
+                                                  "status":  "Extinguisher pressure gauge is below operational range.",
+                                                  "inspectionDetails":  "Gauge indicator shows insufficient pressure.",
+                                                  "nistControl":  "PE-13 Fire Protection",
+                                                  "riskGuidance":  "Evaluate inability to suppress fire effectively."
+                                              },
+                                              {
+                                                  "status":  "Extinguisher seal is broken.",
+                                                  "inspectionDetails":  "Tamper seal missing; possible unauthorized use.",
+                                                  "nistControl":  "PE-13 Fire Protection",
+                                                  "riskGuidance":  "Assess risk of non-functional extinguisher during emergency."
+                                              },
+                                              {
+                                                  "status":  "Extinguisher is missing from its designated mount.",
+                                                  "inspectionDetails":  "Mounting bracket is empty.",
+                                                  "nistControl":  "PE-13 Fire Protection",
+                                                  "riskGuidance":  "Evaluate impact of missing fire suppression equipment."
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "TrashDumpster",
+                            "information":  [
+                                                {
+                                                    "status":  "The disposal container is locked and the attached destruction manifest is complete.",
+                                                    "inspectionDetails":  "The lock is intact and the manifest identifies the current batch for approved sanitization.",
+                                                    "nistControl":  "MP-6 Media Sanitization; MP-5 Media Transport",
+                                                    "riskGuidance":  "Consider data exposure if retired media is removed before approved sanitization."
+                                                },
+                                                {
+                                                    "status":  "Media disposal container is secured and monitored.",
+                                                    "inspectionDetails":  "Manifest shows proper chain-of-custody documentation.",
+                                                    "nistControl":  "MP-6 Media Sanitization",
+                                                    "riskGuidance":  "Consider data exposure if retired media is removed before approved sanitization."
+                                                },
+                                                {
+                                                    "status":  "Container is locked and contains only unlabelled, pre-approved media.",
+                                                    "inspectionDetails":  "Manifest is signed and up to date.",
+                                                    "nistControl":  "MP-6 Media Sanitization",
+                                                    "riskGuidance":  "Consider data exposure if retired media is removed before approved sanitization."
+                                                },
+                                                {
+                                                    "status":  "Disposal container meets all sanitization and transport requirements.",
+                                                    "inspectionDetails":  "Lock and manifest verified.",
+                                                    "nistControl":  "MP-6 Media Sanitization; MP-5 Media Transport",
+                                                    "riskGuidance":  "Consider data exposure if retired media is removed before approved sanitization."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "The media-disposal container is unlocked and contains labelled storage media without a destruction record.",
+                                                  "inspectionDetails":  "Two labelled drives are visible. No chain-of-custody or sanitization documentation is attached.",
+                                                  "nistControl":  "MP-6 Media Sanitization; MP-5 Media Transport",
+                                                  "riskGuidance":  "Consider data exposure if retired media is removed before approved sanitization."
+                                              },
+                                              {
+                                                  "status":  "Manifest is missing required signatures.",
+                                                  "inspectionDetails":  "Chain-of-custody incomplete.",
+                                                  "nistControl":  "MP-5 Media Transport",
+                                                  "riskGuidance":  "Assess risk of improper media handling."
+                                              },
+                                              {
+                                                  "status":  "Container lock is damaged.",
+                                                  "inspectionDetails":  "Lock mechanism does not fully engage.",
+                                                  "nistControl":  "MP-6 Media Sanitization",
+                                                  "riskGuidance":  "Evaluate risk of unauthorized media removal."
+                                              },
+                                              {
+                                                  "status":  "Unlabeled media found inside disposal container.",
+                                                  "inspectionDetails":  "Items do not match manifest entries.",
+                                                  "nistControl":  "MP-6 Media Sanitization",
+                                                  "riskGuidance":  "Assess risk of untracked sensitive media exposure."
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "CoolingUnit",
+                            "information":  [
+                                                {
+                                                    "status":  "The cooling unit reports within its operating range and has an up-to-date maintenance record.",
+                                                    "inspectionDetails":  "The alert indicator is active and the inspection record shows the next service window.",
+                                                    "nistControl":  "PE-14 Environmental Controls; SI-4 System Monitoring",
+                                                    "riskGuidance":  "Evaluate availability impact if environmental conditions damage data-center equipment."
+                                                },
+                                                {
+                                                    "status":  "Cooling unit temperature is stable and alarms are enabled.",
+                                                    "inspectionDetails":  "Maintenance log shows recent service.",
+                                                    "nistControl":  "PE-14 Environmental Controls",
+                                                    "riskGuidance":  "Evaluate availability impact if environmental conditions damage data-center equipment."
+                                                },
+                                                {
+                                                    "status":  "Environmental controls functioning normally.",
+                                                    "inspectionDetails":  "Temperature logs show no excursions.",
+                                                    "nistControl":  "PE-14 Environmental Controls",
+                                                    "riskGuidance":  "Evaluate availability impact if environmental conditions damage data-center equipment."
+                                                },
+                                                {
+                                                    "status":  "Cooling system is operating within baseline parameters.",
+                                                    "inspectionDetails":  "Monitoring alerts are active and maintenance is current.",
+                                                    "nistControl":  "PE-14 Environmental Controls; SI-4 System Monitoring",
+                                                    "riskGuidance":  "Evaluate availability impact if environmental conditions damage data-center equipment."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "The cooling-unit temperature alarm is disabled and the maintenance log is incomplete.",
+                                                  "inspectionDetails":  "The alert indicator is disabled despite a recorded temperature excursion.",
+                                                  "nistControl":  "PE-14 Environmental Controls; SI-4 System Monitoring",
+                                                  "riskGuidance":  "Evaluate availability impact if environmental conditions damage data-center equipment."
+                                              },
+                                              {
+                                                  "status":  "Cooling unit shows repeated temperature spikes.",
+                                                  "inspectionDetails":  "Logs indicate excursions above safe thresholds.",
+                                                  "nistControl":  "PE-14 Environmental Controls",
+                                                  "riskGuidance":  "Assess risk of overheating critical systems."
+                                              },
+                                              {
+                                                  "status":  "Cooling unit fan is malfunctioning.",
+                                                  "inspectionDetails":  "RPM readings below operational range.",
+                                                  "nistControl":  "PE-14 Environmental Controls",
+                                                  "riskGuidance":  "Evaluate potential equipment damage due to insufficient cooling."
+                                              },
+                                              {
+                                                  "status":  "Environmental monitoring alerts are not being generated.",
+                                                  "inspectionDetails":  "Alert system offline.",
+                                                  "nistControl":  "SI-4 System Monitoring",
+                                                  "riskGuidance":  "Assess risk of undetected environmental failures."
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "SecurityCamera",
+                            "information":  [
+                                                {
+                                                    "status":  "The perimeter camera is aligned to cover the entrance and retains recordings.",
+                                                    "inspectionDetails":  "The camera covers the access path and the recorder shows an active retention schedule.",
+                                                    "nistControl":  "PE-6 Monitoring Physical Access; AU-11 Audit Record Retention",
+                                                    "riskGuidance":  "Consider the likelihood and impact of undetected unauthorized physical access."
+                                                },
+                                                {
+                                                    "status":  "Camera is properly aimed and recording retention is active.",
+                                                    "inspectionDetails":  "Coverage includes all approach paths.",
+                                                    "nistControl":  "PE-6 Monitoring Physical Access",
+                                                    "riskGuidance":  "Consider the likelihood and impact of undetected unauthorized physical access."
+                                                },
+                                                {
+                                                    "status":  "Camera feed is stable and retention meets policy.",
+                                                    "inspectionDetails":  "Recorder shows 30-day retention enabled.",
+                                                    "nistControl":  "AU-11 Audit Record Retention",
+                                                    "riskGuidance":  "Consider the likelihood and impact of undetected unauthorized physical access."
+                                                },
+                                                {
+                                                    "status":  "Perimeter monitoring is functioning normally.",
+                                                    "inspectionDetails":  "Camera alignment and retention verified.",
+                                                    "nistControl":  "PE-6 Monitoring Physical Access",
+                                                    "riskGuidance":  "Consider the likelihood and impact of undetected unauthorized physical access."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "The perimeter camera has a blind spot and its recording retention setting is disabled.",
+                                                  "inspectionDetails":  "The camera is aimed away from the approach path; recording status indicates retention is off.",
+                                                  "nistControl":  "PE-6 Monitoring Physical Access; AU-11 Audit Record Retention",
+                                                  "riskGuidance":  "Consider the likelihood and impact of undetected unauthorized physical access."
+                                              },
+                                              {
+                                                  "status":  "Camera feed is intermittently failing.",
+                                                  "inspectionDetails":  "Recorder shows multiple feed dropouts.",
+                                                  "nistControl":  "PE-6 Monitoring Physical Access",
+                                                  "riskGuidance":  "Assess risk of missed security events."
+                                              },
+                                              {
+                                                  "status":  "Retention schedule is misconfigured.",
+                                                  "inspectionDetails":  "Recordings are being overwritten after 24 hours.",
+                                                  "nistControl":  "AU-11 Audit Record Retention",
+                                                  "riskGuidance":  "Evaluate impact of insufficient retention for investigations."
+                                              },
+                                              {
+                                                  "status":  "Camera alignment shifted due to loose mounting.",
+                                                  "inspectionDetails":  "Coverage no longer includes full entry path.",
+                                                  "nistControl":  "PE-6 Monitoring Physical Access",
+                                                  "riskGuidance":  "Assess risk of unauthorized access going undetected."
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "SecurityWorkstation",
+                            "information":  [
+                                                {
+                                                    "status":  "A control inconsistency was observed.",
+                                                    "inspectionDetails":  "A control inconsistency was observed.",
+                                                    "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                    "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                                },
+                                                {
+                                                    "status":  "The control appears implemented.",
+                                                    "inspectionDetails":  "The control appears implemented.",
+                                                    "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                    "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "A control inconsistency was observed.",
+                                                  "inspectionDetails":  "A control inconsistency was observed.",
+                                                  "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                  "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                              },
+                                              {
+                                                  "status":  "The control appears implemented.",
+                                                  "inspectionDetails":  "The control appears implemented.",
+                                                  "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                  "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                              }
+                                          ]
+                        },
+                        {
+                            "objectType":  "NetworkOperationsConsole",
+                            "information":  [
+                                                {
+                                                    "status":  "A control inconsistency was observed.",
+                                                    "inspectionDetails":  "A control inconsistency was observed.",
+                                                    "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                    "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                                },
+                                                {
+                                                    "status":  "The control appears implemented.",
+                                                    "inspectionDetails":  "The control appears implemented.",
+                                                    "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                    "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                                }
+                                            ],
+                            "anomalies":  [
+                                              {
+                                                  "status":  "A control inconsistency was observed.",
+                                                  "inspectionDetails":  "A control inconsistency was observed.",
+                                                  "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                  "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                              },
+                                              {
+                                                  "status":  "The control appears implemented.",
+                                                  "inspectionDetails":  "The control appears implemented.",
+                                                  "nistControl":  "NIST SP 800-53 Rev. 5",
+                                                  "riskGuidance":  "Assess likelihood and impact using the associated risk form."
+                                              }
+                                          ]
+                        }
+                    ]
+}
